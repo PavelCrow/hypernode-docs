@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Руководство пользователя HyperNode для Autodesk Maya">
+  <title>Возможности · HyperNode</title>
+  <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+  --bg: #0b1016;
+  --panel: #111923;
+  --line: #233241;
+  --text: #e9f1f6;
+  --muted: #9baebb;
+  --accent: #76d7cb;
+  --accent2: #a997ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 Inter, Segoe UI, Arial, sans-serif; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: #b6fff4; }
+.topbar { height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; border-bottom: 1px solid var(--line); background: #101821; position: sticky; top: 0; z-index: 4; }
+.brand { display: flex; align-items: center; gap: 13px; color: #fff; text-decoration: none; font-weight: 750; letter-spacing: -.04em; font-size: 20px; }
+.brand small { font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; margin-left: 6px; }
+.brand-mark { display: flex; align-items: center; justify-content: center; flex: 0 0 38px; width: 38px; height: 38px; border: 1px solid #478b89; border-radius: 10px; background: linear-gradient(145deg,#1d3d45,#141f31); font-size: 13px; letter-spacing: -.12em; }
+.brand-mark span { color: var(--accent); font-size: 10px; margin: 0 1px; }
+.layout { display: grid; grid-template-columns: 262px minmax(0,1fr); min-height: calc(100vh - 72px); max-width: 1500px; margin: auto; }
+.sidebar { position: sticky; top: 72px; height: calc(100vh - 72px); overflow-y: auto; border-right: 1px solid var(--line); padding: 36px 16px 28px 22px; background: #0e151d; }
+.sidebar-caption { color: #668194; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin: 0 14px 18px; }
+.nav-link { display: block; padding: 9px 14px; border-radius: 9px; text-decoration: none; color: #a8bbc8; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.nav-link:hover { background: #1b2934; color: #fff; }
+.nav-link.active { background: #183b40; color: #acfff2; box-shadow: inset 3px 0 var(--accent); }
+.sidebar-note { border-top: 1px solid var(--line); margin: 30px 14px 0; padding-top: 18px; color: #718797; font-size: 12px; line-height: 1.5; }
+.content { width: min(100%, 970px); padding: 54px clamp(24px, 6vw, 94px) 80px; }
+.eyebrow { color: var(--accent); font-size: 11px; font-weight: 750; letter-spacing: .18em; margin-bottom: 15px; }
+article h1 { font-size: clamp(38px,5vw,58px); line-height: 1.1; letter-spacing: -.055em; margin: 0 0 26px; }
+article h2 { font-size: 27px; letter-spacing: -.035em; margin: 56px 0 15px; padding-top: 18px; border-top: 1px solid var(--line); }
+article h3 { font-size: 20px; letter-spacing: -.025em; margin: 34px 0 10px; color: #d8e9ed; }
+article p, article li { color: #b9cbd6; }
+article p { margin: 0 0 18px; }
+article h1 + p { font-size: 18px; color: #c8d8e2; }
+article ul, article ol { padding-left: 24px; }
+article li { margin: 9px 0; padding-left: 4px; }
+article li::marker { color: var(--accent); }
+article strong { color: #effcff; font-weight: 650; }
+article aside { background: #18252d; border-left: 3px solid var(--accent2); color: #cbd9df; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 26px 0; }
+article code { background: #1c2c36; color: #b4e6dd; border-radius: 5px; padding: 2px 6px; font: .89em Consolas, monospace; }
+article pre { overflow-x: auto; background: #101d28; border: 1px solid #294052; border-radius: 12px; padding: 20px; }
+article pre code { background: none; padding: 0; }
+footer { margin-top: 76px; border-top: 1px solid var(--line); padding-top: 24px; color: #718797; font-size: 13px; }
+.nav-toggle, .menu-button { display: none; }
+@media (max-width: 760px) {
+  .topbar { height: 62px; padding: 0 18px; }
+  .layout { display: block; }
+  .menu-button { display: block; cursor: pointer; font-size: 24px; color: var(--accent); }
+  .sidebar { display: none; position: fixed; top: 62px; left: 0; right: 0; height: auto; max-height: calc(100vh - 62px); z-index: 3; border-right: 0; border-bottom: 1px solid var(--line); box-shadow: 0 18px 40px #0008; }
+  .nav-toggle:checked ~ .layout .sidebar { display: block; }
+  .content { width: 100%; padding: 34px 22px 70px; }
+  article h2 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+  <input id="nav-toggle" class="nav-toggle" type="checkbox">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">H<span>◆</span>N</span><span>HyperNode <small>Docs</small></span></a>
+    <label class="menu-button" for="nav-toggle" aria-label="Открыть меню">☰</label>
+  </header>
+  <div class="layout">
+    <nav class="sidebar" aria-label="Разделы документации">
+      <div class="sidebar-caption">Руководство</div>
+      <a class="nav-link" href="index.html">Главная</a>
+<a class="nav-link" href="installation.html">Установка и запуск</a>
+<a class="nav-link" href="quickstart.html">Быстрый старт</a>
+<a class="nav-link" href="graph.html">Работа с графом</a>
+<a class="nav-link active" href="features.html">Возможности</a>
+<a class="nav-link" href="settings.html">Настройки интерфейса</a>
+<a class="nav-link" href="support.html">Решение проблем</a>
+      <div class="sidebar-note">Документация находится в разработке.</div>
+    </nav>
+    <main class="content">
+      <div class="eyebrow">РУКОВОДСТВО / ВОЗМОЖНОСТИ</div>
+      <article><h1 id="возможности-hypernode">Возможности HyperNode</h1>
+<p>Это рабочий реестр функций, подтверждённых исходным кодом проекта. Он нужен для будущих страниц руководства. Формулировки описывают возможности HyperNode и <strong>не утверждают</strong>, что каждая из них отсутствует в стандартном Node Editor Maya. Поведение ещё предстоит проверить в живой Maya и дополнить скриншотами.</p>
+<p>Знак <strong>★</strong> отмечает главные темы для <a href="index.html">первой страницы</a>. Остальные пункты пригодятся для подробных инструкций.</p>
+<h2 id="граф-и-навигация">Граф и навигация</h2>
+<ul>
+<li><strong>★ Раскрытие связей в обе стороны:</strong> показать входящие, исходящие или входящие и исходящие вместе от выбранных нод.</li>
+<li>Настройка глубины раскрытия, режим всей цепочки и предел числа нод, добавляемых за одно действие.</li>
+<li>Показ связей одного порта или всей цепочки за ним; скрытие связанных нод с канвы.</li>
+<li>Рецепты обхода: остановка на заданных типах нод и атрибутах; возможность временно отключить правила.</li>
+<li>Добавление выделения Maya на канву, удаление нод только с канвы и очистка канвы без удаления объектов Maya.</li>
+<li>Перетаскивание нод из Outliner на канву; по настройке трансформ добавляется вместе с шейпами.</li>
+<li>Создание ноды Maya из меню по Tab: поиск по типам, категории и недавно созданные типы.</li>
+<li>Добавление DAG-родителя и детей выбранной ноды; отдельный показ линий родства трансформов и шейпов.</li>
+<li>Выделение связанного дерева нод вверх, вниз или в обе стороны.</li>
+<li>Временная изоляция выбранных нод с добавлением и исключением элементов из изолированного набора.</li>
+<li>Кадрирование всех или выделенных нод; указатели на выделенные ноды вне видимой области.</li>
+<li>Контекстное меню жестов для частых действий над нодой и пустой канвой.</li>
+</ul>
+<h2 id="раскладка-и-большие-графы">Раскладка и большие графы</h2>
+<ul>
+<li><strong>★ Раскладка по связям:</strong> позиционирование с учётом направления потока, ветвей, портов и уже стоящих нод.</li>
+<li>Повторная раскладка всех видимых нод без изменения состава канвы.</li>
+<li>Раскрытие входов и выходов одним действием с согласованной раскладкой сторон.</li>
+<li>Настройка промежутков между колонками, нодами и ветвями.</li>
+<li>Пользовательские правила раскладки для типов нод; опция не проводить чужие связи через тела нод.</li>
+<li>Добавление новых нод стопкой под курсором вместо раскладки по связям; Shift переключает способ на время действия.</li>
+<li>Облегчённое перетаскивание тяжёлого графа рамками вместо постоянной перерисовки нод.</li>
+<li>Сохранение снимка раскладки для последующего анализа и настройки правил.</li>
+<li>Временное скрытие линий связей или отрисовка прямых линий вместо кривых.</li>
+</ul>
+<h2 id="группы-вкладки-и-заметки">Группы, вкладки и заметки</h2>
+<ul>
+<li><strong>★ Виртуальные группы:</strong> создание группы из выделенных нод, вход внутрь группы и возврат по навигационной цепочке.</li>
+<li>Перенос нод в существующую группу перетаскиванием или через меню; разгруппировка.</li>
+<li>Внешние входы и выходы группы показываются на её границе; работа с граничными атрибутами и связями.</li>
+<li>Несколько вкладок канвы: создание, переименование, дублирование, закрытие и изменение порядка.</li>
+<li><strong>★ Корзина вкладок:</strong> сохранение состояния вкладки и восстановление его позднее; управление сохранёнными вкладками.</li>
+<li>Восстановление вкладок, групп, позиций и вида канвы из данных сессии сцены.</li>
+<li><strong>★ Заметки на канве:</strong> текст, размер, цвет заливки и шрифта; блокировка, копирование оформления и перемещение вместе с нодами.</li>
+</ul>
+<h2 id="атрибуты-и-соединения">Атрибуты и соединения</h2>
+<ul>
+<li><strong>★ Подключение перетаскиванием:</strong> выбор атрибута из меню при броске связи на ноду, подсветка совместимых и приглушение несовместимых портов.</li>
+<li>Подключение и переподключение отдельных атрибутов; визуальные подсказки на портах и линиях.</li>
+<li>Защита от противоречивых связей составного атрибута и его компонента при новом подключении.</li>
+<li><strong>★ Наборы связей (Link Sets):</strong> заранее заданные группы атрибутов для многократного подключения одним действием.</li>
+<li>Правила подключения (Link Hooks) для выбора принимающего атрибута по типу данных и условиям правила.</li>
+<li>Копирование связи с выходного порта и вставка на входной, в том числе для нескольких выбранных нод.</li>
+<li>Перемещение и дублирование нескольких линий связи одним жестом.</li>
+<li>Разрезание линий жестом на канве; команды показа и скрытия связей в меню портов.</li>
+<li>Подсказки на линиях и портах с информацией о соединении.</li>
+<li>Скрытие промежуточных нод заданных типов с сохранением читаемой линии между основными нодами; режимы с точками на линии и без них.</li>
+<li><strong>★ Гиперсеты:</strong> сворачивание множества соседей одного мультиатрибута в компактный блок, ручное раскрытие и правила автоматического сворачивания.</li>
+</ul>
+<h2 id="ноды-и-значения">Ноды и значения</h2>
+<ul>
+<li>Несколько режимов показа атрибутов: свёрнутый, подключённые, подключённые и важные, все; отдельный компактный вид ноды.</li>
+<li>Собственный список важных атрибутов (Essentials) для типа ноды; поиск атрибутов внутри ноды.</li>
+<li>Две колонки атрибутов с отдельным расположением входов и выходов; ручной выбор колонки для строки.</li>
+<li>Показ и изменение значений прямо на ноде, в том числе чисел, векторов и перечислений; закрепление отдельных полей значений.</li>
+<li><strong>★ Снимки значений атрибутов:</strong> сохранение текущих значений в слот и применение сохранённого набора.</li>
+<li>Просмотр матричных значений в отдельной панели и работа со списком объектов внутри ноды.</li>
+<li>Создание, редактирование, переименование, перестановка и удаление пользовательских атрибутов из меню ноды; часть действий применима к нескольким выбранным нодам.</li>
+<li>Блокировка атрибута и управление его видимостью в Channel Box из меню строки.</li>
+<li>Дублирование выбранных нод вместе с соединениями.</li>
+</ul>
+<h2 id="channel-box">Channel Box</h2>
+<ul>
+<li><strong>★ Собственный Channel Box</strong> в колонке вкладок или отдельном окне, синхронизированный с выделением Maya.</li>
+<li>Изменение значений, прокрутка значения перетаскиванием и настройка точности и скорости изменения.</li>
+<li>Просмотр общих каналов нескольких выбранных объектов; по настройке — важных входов и скрытых пользовательских атрибутов.</li>
+<li>Команды ключей и анимации, копирования и вставки значений, разрыва соединений, блокировки и видимости каналов.</li>
+<li>Переход к связанным инструментам Maya, включая Graph Editor и Attribute Editor.</li>
+</ul>
+<h2 id="фильтры-и-оформление">Фильтры и оформление</h2>
+<ul>
+<li>Группы фильтров типов нод с редактируемым составом и отдельными кнопками на панели инструментов.</li>
+<li>Фильтрация связей <code>message</code> и связей <code>scale → inverseScale</code>; настройка типов промежуточных нод.</li>
+<li>Управление показом сетки, типа ноды, линий связей и родства, подсказок на канве.</li>
+<li>Настройка цветов портов и связей по типам данных, фона, размеров элементов и других параметров интерфейса.</li>
+<li>Собственные категории типов нод и цвета категорий.</li>
+<li>Редактор иконок типов нод и кнопок, настройка состава и внешнего вида панели инструментов.</li>
+<li>Вертикальные или горизонтальные вкладки; размещение Channel Box рядом с ними.</li>
+</ul>
+<h2 id="для-диагностики">Для диагностики</h2>
+<ul>
+<li>Отладочный снимок текущей канвы и переключатель замера времени добавления нод.</li>
+<li>Обновление кэша атрибутов целиком или только для типов выбранных нод.</li>
+</ul>
+<h2 id="основание-для-реестра">Основание для реестра</h2>
+<p>Проверены пользовательские действия и настройки в <code>node_editor.py</code>, <code>view.py</code>, <code>scene.py</code>, <code>node.py</code>, <code>port.py</code>, <code>connection.py</code>, <code>hyper_set.py</code>, <code>note.py</code>, <code>channel_box.py</code>, <code>icon_editor.py</code>, <code>utils.py</code>, а также описание логики в <code>CLAUDE.md</code>. Перечень сгруппирован по задачам пользователя; внутренние механизмы без отдельного действия в интерфейсе здесь не перечислены.</p></article>
+      <footer>HyperNode · Документация для Autodesk Maya</footer>
+    </main>
+  </div>
+</body>
+</html>

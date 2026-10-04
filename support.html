@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Руководство пользователя HyperNode для Autodesk Maya">
+  <title>Решение проблем · HyperNode</title>
+  <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+  --bg: #0b1016;
+  --panel: #111923;
+  --line: #233241;
+  --text: #e9f1f6;
+  --muted: #9baebb;
+  --accent: #76d7cb;
+  --accent2: #a997ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 Inter, Segoe UI, Arial, sans-serif; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: #b6fff4; }
+.topbar { height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; border-bottom: 1px solid var(--line); background: #101821; position: sticky; top: 0; z-index: 4; }
+.brand { display: flex; align-items: center; gap: 13px; color: #fff; text-decoration: none; font-weight: 750; letter-spacing: -.04em; font-size: 20px; }
+.brand small { font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; margin-left: 6px; }
+.brand-mark { display: flex; align-items: center; justify-content: center; flex: 0 0 38px; width: 38px; height: 38px; border: 1px solid #478b89; border-radius: 10px; background: linear-gradient(145deg,#1d3d45,#141f31); font-size: 13px; letter-spacing: -.12em; }
+.brand-mark span { color: var(--accent); font-size: 10px; margin: 0 1px; }
+.layout { display: grid; grid-template-columns: 262px minmax(0,1fr); min-height: calc(100vh - 72px); max-width: 1500px; margin: auto; }
+.sidebar { position: sticky; top: 72px; height: calc(100vh - 72px); overflow-y: auto; border-right: 1px solid var(--line); padding: 36px 16px 28px 22px; background: #0e151d; }
+.sidebar-caption { color: #668194; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin: 0 14px 18px; }
+.nav-link { display: block; padding: 9px 14px; border-radius: 9px; text-decoration: none; color: #a8bbc8; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.nav-link:hover { background: #1b2934; color: #fff; }
+.nav-link.active { background: #183b40; color: #acfff2; box-shadow: inset 3px 0 var(--accent); }
+.sidebar-note { border-top: 1px solid var(--line); margin: 30px 14px 0; padding-top: 18px; color: #718797; font-size: 12px; line-height: 1.5; }
+.content { width: min(100%, 970px); padding: 54px clamp(24px, 6vw, 94px) 80px; }
+.eyebrow { color: var(--accent); font-size: 11px; font-weight: 750; letter-spacing: .18em; margin-bottom: 15px; }
+article h1 { font-size: clamp(38px,5vw,58px); line-height: 1.1; letter-spacing: -.055em; margin: 0 0 26px; }
+article h2 { font-size: 27px; letter-spacing: -.035em; margin: 56px 0 15px; padding-top: 18px; border-top: 1px solid var(--line); }
+article h3 { font-size: 20px; letter-spacing: -.025em; margin: 34px 0 10px; color: #d8e9ed; }
+article p, article li { color: #b9cbd6; }
+article p { margin: 0 0 18px; }
+article h1 + p { font-size: 18px; color: #c8d8e2; }
+article ul, article ol { padding-left: 24px; }
+article li { margin: 9px 0; padding-left: 4px; }
+article li::marker { color: var(--accent); }
+article strong { color: #effcff; font-weight: 650; }
+article aside { background: #18252d; border-left: 3px solid var(--accent2); color: #cbd9df; padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 26px 0; }
+article code { background: #1c2c36; color: #b4e6dd; border-radius: 5px; padding: 2px 6px; font: .89em Consolas, monospace; }
+article pre { overflow-x: auto; background: #101d28; border: 1px solid #294052; border-radius: 12px; padding: 20px; }
+article pre code { background: none; padding: 0; }
+footer { margin-top: 76px; border-top: 1px solid var(--line); padding-top: 24px; color: #718797; font-size: 13px; }
+.nav-toggle, .menu-button { display: none; }
+@media (max-width: 760px) {
+  .topbar { height: 62px; padding: 0 18px; }
+  .layout { display: block; }
+  .menu-button { display: block; cursor: pointer; font-size: 24px; color: var(--accent); }
+  .sidebar { display: none; position: fixed; top: 62px; left: 0; right: 0; height: auto; max-height: calc(100vh - 62px); z-index: 3; border-right: 0; border-bottom: 1px solid var(--line); box-shadow: 0 18px 40px #0008; }
+  .nav-toggle:checked ~ .layout .sidebar { display: block; }
+  .content { width: 100%; padding: 34px 22px 70px; }
+  article h2 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+  <input id="nav-toggle" class="nav-toggle" type="checkbox">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">H<span>◆</span>N</span><span>HyperNode <small>Docs</small></span></a>
+    <label class="menu-button" for="nav-toggle" aria-label="Открыть меню">☰</label>
+  </header>
+  <div class="layout">
+    <nav class="sidebar" aria-label="Разделы документации">
+      <div class="sidebar-caption">Руководство</div>
+      <a class="nav-link" href="index.html">Главная</a>
+<a class="nav-link" href="installation.html">Установка и запуск</a>
+<a class="nav-link" href="quickstart.html">Быстрый старт</a>
+<a class="nav-link" href="graph.html">Работа с графом</a>
+<a class="nav-link" href="features.html">Возможности</a>
+<a class="nav-link" href="settings.html">Настройки интерфейса</a>
+<a class="nav-link active" href="support.html">Решение проблем</a>
+      <div class="sidebar-note">Документация находится в разработке.</div>
+    </nav>
+    <main class="content">
+      <div class="eyebrow">РУКОВОДСТВО / РЕШЕНИЕ ПРОБЛЕМ</div>
+      <article><h1 id="решение-проблем-и-обратная-связь">Решение проблем и обратная связь</h1>
+<h2 id="панель-не-открывается">Панель не открывается</h2>
+<p>Убедитесь, что команда запуска выполнена во вкладке <strong>Python</strong> окна Script Editor в Maya, а пакет <code>hyperNode</code> доступен её Python-интерпретатору. Если появляется ошибка, сохраните её текст целиком.</p>
+<h2 id="объект-есть-в-сцене-но-его-нет-на-канве">Объект есть в сцене, но его нет на канве</h2>
+<p>Выделите объект в Maya и нажмите <strong>Add Selected</strong> в HyperNode. Это действие добавляет текущее выделение на канву.</p>
+<h2 id="как-сообщить-о-проблеме">Как сообщить о проблеме</h2>
+<p>Пожалуйста, подготовьте версию Maya, последовательность действий, ожидаемый и фактический результат. Если возможно, добавьте скриншот и полный текст ошибки из Script Editor.</p>
+<p><strong>Канал обратной связи будет указан перед публикацией.</strong> Пока не отправляйте файлы сцены и личные данные в открытые обсуждения.</p></article>
+      <footer>HyperNode · Документация для Autodesk Maya</footer>
+    </main>
+  </div>
+</body>
+</html>
